@@ -28,7 +28,6 @@ Cache.prototype.get = function(key) {
         } else if (cacheObj.reseter) {
             // 如果有注册 getter，则异步读取内容并更新回 cache
             process.nextTick(function () {
-                // TODO: reseting 应该区分 key
                 if (cacheObj.reseting) {
                     return;
                 }
