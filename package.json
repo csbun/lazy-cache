@@ -1,0 +1,26 @@
+{
+  "name": "lazy-cache",
+  "version": "0.0.1",
+  "description": "automatic reset cache asynchronously when expired",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/csbun/lazy-cache.git"
+  },
+  "keywords": [
+    "cache",
+    "async"
+  ],
+  "author": "Hans Chan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/csbun/lazy-cache/issues"
+  },
+  "homepage": "https://github.com/csbun/lazy-cache",
+  "dependencies": {
+    "co": "^4.5.4"
+  }
+}
