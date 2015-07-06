@@ -1,5 +1,5 @@
 {
-  "name": "lazy-cache",
+  "name": "lazycache",
   "version": "0.0.1",
   "description": "automatic reset cache asynchronously when expired",
   "main": "index.js",
