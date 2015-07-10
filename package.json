@@ -4,7 +4,7 @@
   "description": "automatic reset cache asynchronously when expired",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --harmony"
+    "test": "node node_modules/mocha/bin/mocha --harmony"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
   "homepage": "https://github.com/csbun/lazy-cache",
   "dependencies": {
     "co": "^4.5.4"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5"
   }
 }

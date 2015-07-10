@@ -4,6 +4,9 @@ lazy inmemory cache for node, automatic reset cache asynchronously when expired
 
 [![NPM](https://nodei.co/npm/lazycache.png?compact=true)](https://nodei.co/npm/lazycache/)
 
+[![Build Status](https://travis-ci.org/csbun/lazy-cache.svg?branch=master)](https://travis-ci.org/csbun/lazy-cache)
+[![Coverage Status](https://coveralls.io/repos/csbun/lazy-cache/badge.svg?branch=master&service=github)](https://coveralls.io/github/csbun/lazy-cache?branch=master)
+
 ## Install
 
 ```
