@@ -4,7 +4,7 @@
   "description": "automatic reset cache asynchronously when expired",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha --harmony"
+    "test": "node --harmony node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "co": "^4.5.4"
   },
   "devDependencies": {
+    "istanbul": "^0.3.17",
     "mocha": "^2.2.5"
   }
 }
