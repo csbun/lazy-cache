@@ -4,7 +4,7 @@
   "description": "automatic reset cache asynchronously when expired",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --harmony"
   },
   "repository": {
     "type": "git",

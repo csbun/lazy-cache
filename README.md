@@ -1,20 +1,22 @@
-# lazy-cache
+# lazycache
 
 lazy inmemory cache for node, automatic reset cache asynchronously when expired
 
-## install
+[![NPM](https://nodei.co/npm/lazycache.png?compact=true)](https://nodei.co/npm/lazycache/)
+
+## Install
 
 ```
-npm i lazyCache
+npm i lazycache --save
 ```
 
-## usage
+## Usage
 
-### init
+### Init
 
 Use the factory method to init a cache object:
 
-```
+```javascript
 var defaultCacheTime = 300000; // 300000 ms = 5 min
 var cache = require('lazyCache')(defaultCacheTime);
 ```
