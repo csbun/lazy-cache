@@ -1,10 +1,10 @@
 {
   "name": "lazycache",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "automatic reset cache asynchronously when expired",
   "main": "index.js",
   "scripts": {
-    "test": "node --harmony node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test": "node node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/csbun/lazy-cache",
   "dependencies": {
-    "co": "^4.5.4"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",

@@ -15,7 +15,7 @@ npm i lazycache --save
 
 ## Usage
 
-### Init
+### lazyCache()
 
 Use the factory method to init a cache object:
 
@@ -24,19 +24,35 @@ var defaultCacheTime = 300000; // 300000 ms = 5 min
 var cache = require('lazyCache')(defaultCacheTime);
 ```
 
+if `defaultCacheTime < 0`, a `noCache` object will return, which offer the same API but do __NOT__ cache anything.
+
 ### cache.get(key)
 
 Get value from cache
 
 - key: cache key
 
-### cache.set(key, val, cacheTime, reseter)
+```javascript
+cache.set('key', 'my cache value');
+```
+
+### cache.set(key, val [, cacheTime] [, reseter])
 
 Set value into cache
 
 - key: cache key
 - val: cache value
 - cacheTime: cache time (ms)
-- reseter: generator function (ES2015) which return a fresh cache value
+- reseter: a function which reset the `cache value`
+
+```javascript
+var reseter = function (cb) {
+    // async
+    setTimeout(function () {
+        cb(null, 'new value'); // `null` for NO error
+    }, 30);
+};
+cache.set('key', 'initial value', reseter)
+```
 
 

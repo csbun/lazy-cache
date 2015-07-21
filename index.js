@@ -1,7 +1,5 @@
 'use strict';
 
-var co = require('co');
-
 /**
  * 内存缓存
  * @param {number} defaultCacheTime 缓存时间长度，毫秒，默认 5 分钟
@@ -20,6 +18,7 @@ function Cache(defaultCacheTime) {
  */
 Cache.prototype.get = function(key) {
     var cacheObj = this._mem[key];
+    var that = this;
     // 找到缓存内容
     if (cacheObj) {
         // 没有过期
@@ -32,14 +31,15 @@ Cache.prototype.get = function(key) {
                     return;
                 }
                 cacheObj.reseting = true;
-                co(cacheObj.reseter).then(function (val) {
+                cacheObj.reseter(function (err, val) {
                     cacheObj.reseting = false;
-                    this.set(key, val, cacheObj.cacheTime, cacheObj.reseter);
-                }.bind(this), function (err) {
-                    cacheObj.reseting = false;
-                    console.error(err);
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        that.set(key, val, cacheObj.cacheTime, cacheObj.reseter);
+                    }
                 });
-            }.bind(this));
+            });
             // 此时仍然返回过期的数据
             return cacheObj.val;
         } else {
@@ -58,15 +58,47 @@ Cache.prototype.get = function(key) {
  * @param {function} reseter   过期后重新获取当前 val 的方法
  */
 Cache.prototype.set = function(key, val, cacheTime, reseter) {
-    cacheTime = cacheTime || this._dct;
+    var rfn;
+    var ct = this._dct;
+    if (isFunction(cacheTime)) {
+        rfn = cacheTime;
+    } else {
+        if (isNumber(cacheTime)) {
+            ct = cacheTime;
+        }
+        if (isFunction(reseter)) {
+            rfn = reseter;
+        }
+    }
     this._mem[key] = {
         val: val,
-        reseter: reseter,
-        cacheTime: cacheTime,
-        expires: (+new Date()) + cacheTime
+        reseter: rfn,
+        cacheTime: ct,
+        expires: (+new Date()) + ct
     };
     return this;
 };
+
+
+function isNumber(arg) {
+    return typeof arg === 'number';
+}
+
+function isFunction(arg) {
+    return typeof arg === 'function';
+}
+
+/**
+ * NoCache 模式，永远不会缓存
+ * 提供 Cache 一样的接口 `get` 和 `set`
+ */
+function NoCache() {
+    var that = this;
+    this.set = function () {
+        return that;
+    };
+    this.get = function () {};
+}
 
 
 /**
@@ -75,5 +107,10 @@ Cache.prototype.set = function(key, val, cacheTime, reseter) {
  * @return {Cache}                   内存缓存
  */
 module.exports = function (defaultCacheTime) {
-    return new Cache(defaultCacheTime);
+    if (defaultCacheTime < 0) {
+        // 如果 defaultCacheTime 则为
+        return new NoCache();
+    } else {
+        return new Cache(defaultCacheTime);
+    }
 };
